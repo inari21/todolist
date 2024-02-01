@@ -5,8 +5,9 @@ export const IncompleteTodos = (props) => {
     Todos,
     onClickComplete,
     onClickDelete,
-    priorityValues,
+    // priorityValues,
     handlePriorityChange,
+    openModal,
   } = props;
 
   return (
@@ -14,13 +15,15 @@ export const IncompleteTodos = (props) => {
       <p className="title">未完了のTODO</p>
       <ul>
         {Todos.map((todo, index) => (
-          <li key={todo}>
+          <li key={index}>
             <div className="list-row">
-              <p style={{ color: "blue" }}>{priorityValues[index]}</p>
-              <p className="todo-item">{todo}</p>
+              <p style={{ color: "blue" }}>{todo.priority}</p>
+              <p className="todo-item">{todo.text}</p>
               <button onClick={() => onClickComplete(index)}>完了</button>
               <button onClick={() => onClickDelete(index)}>削除</button>
               <select
+                className="dropdown"
+                value={todo.priority}
                 onChange={(event) =>
                   handlePriorityChange(index, event.target.value)
                 }
@@ -30,6 +33,7 @@ export const IncompleteTodos = (props) => {
                 <option value="!!">中</option>
                 <option value="!">低</option>
               </select>
+              <button onClick={() => openModal(index)}>メモ</button>
             </div>
           </li>
         ))}
